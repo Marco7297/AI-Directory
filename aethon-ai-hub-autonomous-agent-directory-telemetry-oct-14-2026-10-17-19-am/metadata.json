@@ -1,0 +1,6 @@
+{
+  "name": "AETHON AI Hub — Autonomous Agent Directory & Telemetry",
+  "description": "The premier intelligence platform for discovering, monitoring, and evaluating autonomous AI agents with real-time operational telemetry and community-driven reviews.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
