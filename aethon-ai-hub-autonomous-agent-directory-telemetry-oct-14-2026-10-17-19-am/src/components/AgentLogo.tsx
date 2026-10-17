@@ -434,7 +434,7 @@ export const AgentLogo: React.FC<AgentLogoProps> = ({
     return null;
   };
 
-  const brandVector = renderBrandVector();
+  const brandVector = logoSrc ? null : renderBrandVector();
 
   return (
     <div 
@@ -459,7 +459,7 @@ export const AgentLogo: React.FC<AgentLogoProps> = ({
             src={logoSrc}
             alt={agent?.name || meta?.name || 'Agent Logo'}
             onError={() => setImgError(true)}
-            className={`w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-300`}
+            className="w-full h-full object-contain p-1.5 bg-white transform group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
         ) : (

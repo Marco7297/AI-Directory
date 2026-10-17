@@ -1,91 +1,5 @@
 import { AIAgent, AgentReview, LiveTelemetryEvent } from '../types';
 
-export const FEATURED_HERO_AGENTS: {
-  id: string;
-  name: string;
-  codeName: string;
-  subtitle: string;
-  image: string;
-  role: string;
-  specs: {
-    engine: string;
-    latency: string;
-    uptime: string;
-    consensus: string;
-    reviews: string;
-  };
-  callouts: {
-    head: { title: string; line1: string; line2: string };
-    chest: { title: string; line1: string; line2: string };
-    base: { title: string; line1: string; line2: string };
-  };
-}[] = [
-  {
-    id: 'synergy-prime',
-    name: 'SYNERGY PRIME',
-    codeName: 'AETHON-IX',
-    subtitle: 'Autonomous Cognitive & Multimodal Reasoning Swarm',
-    image: '/src/assets/images/ai_agent_scout_1791549678032.jpg',
-    role: 'Autonomous Reasoning Core',
-    specs: {
-      engine: 'Neural Swarm v4.2 Hybrid',
-      latency: '6.8ms avg',
-      uptime: '99.98%',
-      consensus: '99.94%',
-      reviews: '14,892 reviews'
-    },
-    callouts: {
-      head: {
-        title: 'ARTIFICIAL INTELLIGENCE',
-        line1: 'Neural Reasoning Core v4.2',
-        line2: 'Cross-model semantic routing'
-      },
-      chest: {
-        title: 'NO EMOTION // PURE LOGIC',
-        line1: 'Autonomous Action Loop',
-        line2: 'Deterministic verification sandbox'
-      },
-      base: {
-        title: 'PRODUCTION TELEMETRY',
-        line1: '6.8ms sub-network ping',
-        line2: '14.8k verified cluster runs'
-      }
-    }
-  },
-  {
-    id: 'titan-carbon',
-    name: 'TITAN CARBON',
-    codeName: 'CHRONOS-VII',
-    subtitle: 'High-Throughput Autonomous Systems & Compiler Orchestration',
-    image: '/src/assets/images/ai_agent_bust_1791549653261.jpg',
-    role: 'Enterprise Systems Orchestrator',
-    specs: {
-      engine: 'Graph-Parallel Actor Mesh',
-      latency: '4.2ms avg',
-      uptime: '99.99%',
-      consensus: '100.00%',
-      reviews: '9,410 reviews'
-    },
-    callouts: {
-      head: {
-        title: 'HIGH-DENSITY COMPUTE',
-        line1: 'Multi-GPU Kernel Execution',
-        line2: '1.2M token context active'
-      },
-      chest: {
-        title: 'HARDENED SECURITY MESH',
-        line1: 'Zero-trust runtime isolation',
-        line2: 'Real-time invariant checking'
-      },
-      base: {
-        title: 'ENTERPRISE SLA',
-        line1: '99.99% continuous availability',
-        line2: 'Sub-5ms multi-region dispatch'
-      }
-    }
-  }
-];
-
 export const AGENT_LOGOS_MAP: Record<string, {
   name: string;
   codeName: string;
@@ -98,7 +12,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'claude-3-5': {
     name: 'Claude 3.5 Sonnet',
     codeName: 'CLAUDE-3.5',
-    logoUrl: '',
+    logoUrl: 'https://claude.ai/favicon.ico',
     themeColor: 'orange',
     accentHex: '#f97316',
     glowColor: 'rgba(249, 115, 22, 0.4)',
@@ -107,7 +21,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'CLAUDE-3.5': {
     name: 'Claude 3.5 Sonnet',
     codeName: 'CLAUDE-3.5',
-    logoUrl: '',
+    logoUrl: 'https://claude.ai/favicon.ico',
     themeColor: 'orange',
     accentHex: '#f97316',
     glowColor: 'rgba(249, 115, 22, 0.4)',
@@ -116,7 +30,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'chatgpt-4o': {
     name: 'ChatGPT Plus (GPT-4o)',
     codeName: 'GPT-4O-OMNI',
-    logoUrl: '',
+    logoUrl: 'https://cdn.oaistatic.com/assets/favicon-o20kmmos.svg',
     themeColor: 'teal',
     accentHex: '#14b8a6',
     glowColor: 'rgba(20, 184, 166, 0.4)',
@@ -125,7 +39,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'GPT-4O-OMNI': {
     name: 'ChatGPT Plus (GPT-4o)',
     codeName: 'GPT-4O-OMNI',
-    logoUrl: '',
+    logoUrl: 'https://cdn.oaistatic.com/assets/favicon-o20kmmos.svg',
     themeColor: 'teal',
     accentHex: '#14b8a6',
     glowColor: 'rgba(20, 184, 166, 0.4)',
@@ -134,7 +48,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'gemini-1-5-pro': {
     name: 'Google Gemini 1.5 Pro',
     codeName: 'GEMINI-PRO',
-    logoUrl: '',
+    logoUrl: 'https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png',
     themeColor: 'indigo',
     accentHex: '#6366f1',
     glowColor: 'rgba(99, 102, 241, 0.4)',
@@ -143,7 +57,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'GEMINI-PRO': {
     name: 'Google Gemini 1.5 Pro',
     codeName: 'GEMINI-PRO',
-    logoUrl: '',
+    logoUrl: 'https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png',
     themeColor: 'indigo',
     accentHex: '#6366f1',
     glowColor: 'rgba(99, 102, 241, 0.4)',
@@ -152,7 +66,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'cursor-composer': {
     name: 'Cursor AI Composer',
     codeName: 'CURSOR-AI',
-    logoUrl: '',
+    logoUrl: 'https://cursor.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#3b82f6',
     glowColor: 'rgba(59, 130, 246, 0.4)',
@@ -161,7 +75,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'CURSOR-AI': {
     name: 'Cursor AI Composer',
     codeName: 'CURSOR-AI',
-    logoUrl: '',
+    logoUrl: 'https://cursor.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#3b82f6',
     glowColor: 'rgba(59, 130, 246, 0.4)',
@@ -170,7 +84,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'perplexity-pro': {
     name: 'Perplexity Pro',
     codeName: 'PERPLEXITY',
-    logoUrl: '',
+    logoUrl: 'https://www.perplexity.ai/favicon.ico',
     themeColor: 'cyan',
     accentHex: '#22d3ee',
     glowColor: 'rgba(34, 211, 238, 0.4)',
@@ -179,7 +93,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'PERPLEXITY': {
     name: 'Perplexity Pro',
     codeName: 'PERPLEXITY',
-    logoUrl: '',
+    logoUrl: 'https://www.perplexity.ai/favicon.ico',
     themeColor: 'cyan',
     accentHex: '#22d3ee',
     glowColor: 'rgba(34, 211, 238, 0.4)',
@@ -188,7 +102,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'copilot-workspace': {
     name: 'GitHub Copilot Workspace',
     codeName: 'COPILOT',
-    logoUrl: '',
+    logoUrl: 'https://github.com/favicon.ico',
     themeColor: 'violet',
     accentHex: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.4)',
@@ -197,7 +111,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'COPILOT': {
     name: 'GitHub Copilot Workspace',
     codeName: 'COPILOT',
-    logoUrl: '',
+    logoUrl: 'https://github.com/favicon.ico',
     themeColor: 'violet',
     accentHex: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.4)',
@@ -206,7 +120,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'deepseek-r1': {
     name: 'DeepSeek-R1',
     codeName: 'DEEPSEEK-R1',
-    logoUrl: '',
+    logoUrl: 'https://www.deepseek.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#1e6fff',
     glowColor: 'rgba(30, 111, 255, 0.4)',
@@ -215,7 +129,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'DEEPSEEK-R1': {
     name: 'DeepSeek-R1',
     codeName: 'DEEPSEEK-R1',
-    logoUrl: '',
+    logoUrl: 'https://www.deepseek.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#1e6fff',
     glowColor: 'rgba(30, 111, 255, 0.4)',
@@ -224,7 +138,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'meta-llama-3': {
     name: 'Meta Llama 3.3 70B',
     codeName: 'LLAMA-3.3',
-    logoUrl: '',
+    logoUrl: 'https://www.llama.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#0081fb',
     glowColor: 'rgba(0, 129, 251, 0.4)',
@@ -233,7 +147,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'LLAMA-3.3': {
     name: 'Meta Llama 3.3 70B',
     codeName: 'LLAMA-3.3',
-    logoUrl: '',
+    logoUrl: 'https://www.llama.com/favicon.ico',
     themeColor: 'blue',
     accentHex: '#0081fb',
     glowColor: 'rgba(0, 129, 251, 0.4)',
@@ -242,7 +156,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'mistral-large': {
     name: 'Mistral Large 2',
     codeName: 'MISTRAL-LG',
-    logoUrl: '',
+    logoUrl: 'https://mistral.ai/favicon.ico',
     themeColor: 'orange',
     accentHex: '#ff7000',
     glowColor: 'rgba(255, 112, 0, 0.4)',
@@ -251,7 +165,7 @@ export const AGENT_LOGOS_MAP: Record<string, {
   'MISTRAL-LG': {
     name: 'Mistral Large 2',
     codeName: 'MISTRAL-LG',
-    logoUrl: '',
+    logoUrl: 'https://mistral.ai/favicon.ico',
     themeColor: 'orange',
     accentHex: '#ff7000',
     glowColor: 'rgba(255, 112, 0, 0.4)',

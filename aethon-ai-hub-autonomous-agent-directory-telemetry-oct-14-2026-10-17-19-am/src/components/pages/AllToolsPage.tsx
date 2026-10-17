@@ -52,6 +52,8 @@ export const AllToolsPage: React.FC<AllToolsPageProps> = ({
   const [selectedPricing, setSelectedPricing] = useState<'All' | ToolPricing>('All');
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [sortBy, setSortBy] = useState<'rating' | 'reviews' | 'name'>('rating');
+  const [selectedWorkCategory, setSelectedWorkCategory] = useState<ToolCategory>('Coding');
+  const workTools = MOCK_TOOLS.filter((tool) => tool.category === selectedWorkCategory);
 
   // Filter and sort the 9+ placeholder tool cards (CMS ready)
   const filteredTools = useMemo(() => {
@@ -103,6 +105,64 @@ export const AllToolsPage: React.FC<AllToolsPageProps> = ({
           Explore our vetted directory of top-tier artificial intelligence software, development engines, and productivity tools. Every tool is benchmarked against real-world reliability, pricing transparency, and practical output quality.
         </p>
       </div>
+
+      <section className="mb-10 border-y border-white/10 py-8" aria-labelledby="work-matches-title">
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-2 flex items-center gap-2 text-[10px] font-mono uppercase text-cyan-300">
+              <Sparkles className="h-3.5 w-3.5" />
+              Work-to-agent matches
+            </p>
+            <h2 id="work-matches-title" className="text-2xl font-bold text-white sm:text-3xl">
+              Find an AI for the work
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm leading-relaxed text-neutral-400">
+            Choose a discipline to see the tools listed for it and what each one is best at.
+          </p>
+        </div>
+
+        <div className="mb-5 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Work specialties">
+          {CATEGORIES.filter((category): category is ToolCategory => category !== 'All').map((category) => (
+            <button
+              key={category}
+              type="button"
+              role="tab"
+              aria-selected={selectedWorkCategory === category}
+              onClick={() => setSelectedWorkCategory(category)}
+              className={`shrink-0 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+                selectedWorkCategory === category
+                  ? 'border-cyan-400/70 bg-cyan-400/10 text-white'
+                  : 'border-white/10 text-neutral-400 hover:border-white/25 hover:text-white'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div role="tabpanel" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {workTools.map((tool) => (
+            <button
+              key={tool.id}
+              type="button"
+              onClick={() => onSelectTool(tool.id)}
+              className="group flex min-w-0 items-start gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-colors hover:border-cyan-400/50 hover:bg-white/[0.05]"
+            >
+              <ToolLogo tool={tool} size="sm" />
+              <span className="min-w-0 flex-1">
+                <span className="mb-1 block text-sm font-semibold text-white group-hover:text-cyan-200">
+                  {tool.name}
+                </span>
+                <span className="block text-xs leading-relaxed text-neutral-400">
+                  <span className="text-cyan-300">Best for: </span>{tool.bestFor}
+                </span>
+              </span>
+              <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500 transition-transform group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+            </button>
+          ))}
+        </div>
+      </section>
 
       {/* Control Bar: Search Bar + Multi-Filters */}
       <div className="bg-[#0b0d14] border border-white/10 rounded-xl p-5 mb-8 shadow-xl backdrop-blur-sm">
@@ -266,6 +326,11 @@ export const AllToolsPage: React.FC<AllToolsPageProps> = ({
                   <p className="text-xs text-neutral-400 line-clamp-3 mb-4 leading-relaxed font-normal">
                     {tool.description}
                   </p>
+
+                  <div className="mb-4 border-l-2 border-cyan-400/60 pl-3">
+                    <span className="text-[10px] font-mono uppercase text-cyan-300">Best for</span>
+                    <p className="mt-1 text-xs leading-relaxed text-neutral-300">{tool.bestFor}</p>
+                  </div>
 
                   {/* Quick Specs / Ratings */}
                   <div className="flex items-center gap-4 py-2 px-3 rounded-lg bg-white/[0.02] border border-white/5 mb-4 text-xs font-mono">

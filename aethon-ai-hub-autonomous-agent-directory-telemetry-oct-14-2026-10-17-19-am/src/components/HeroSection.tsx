@@ -380,9 +380,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                     className="text-4xl sm:text-5xl xl:text-6xl font-black tracking-[0.08em] uppercase leading-[1.05] text-white drop-shadow-md select-text"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
-                    DISCOVER & BENCHMARK <br />
+                    THE BEST AGENTS <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
-                      THE BEST AI
+                      FOR EVERY WORK
                     </span>
                   </h1>
                 </div>
