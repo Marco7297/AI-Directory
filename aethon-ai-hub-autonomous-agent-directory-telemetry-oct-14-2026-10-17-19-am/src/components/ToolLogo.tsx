@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AITool } from '../types';
 
 export type ToolLogoSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -46,6 +46,28 @@ const SIZE_CONFIGS: Record<ToolLogoSize, {
   },
 };
 
+const OFFICIAL_LOGO_URLS: Record<string, string> = {
+  'cursor-ai': 'https://cursor.com/favicon.ico',
+  'claude-ai': 'https://claude.ai/favicon.ico',
+  'perplexity-ai': 'https://www.perplexity.ai/favicon.ico',
+  midjourney: 'https://www.midjourney.com/favicon.ico',
+  elevenlabs: 'https://elevenlabs.io/favicon.ico',
+  'notion-ai': 'https://www.notion.so/front-static/favicon.ico',
+  'github-copilot': 'https://github.com/favicon.ico',
+  'v0-dev': 'https://v0.dev/icon.svg',
+  'runway-gen3': 'https://runwayml.com/icon.png?icon.35ps9bmugbe1e.png',
+  'chatgpt-plus': 'https://cdn.oaistatic.com/assets/favicon-o20kmmos.svg',
+  'descript-ai': 'https://www.descript.com/favicon.ico',
+  'recraft-ai': 'https://framerusercontent.com/images/id5ZjKRfENkLEfAMrnKLKJfqfE.png',
+  'gemini-advanced': 'https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png',
+  'deepseek-r1': 'https://www.deepseek.com/favicon.ico',
+  'meta-llama-3': 'https://www.llama.com/favicon.ico',
+  'mistral-large': 'https://mistral.ai/favicon.ico',
+  'grok-ai': 'https://x.ai/favicon.ico',
+  'flux-ai': 'https://blackforestlabs.ai/favicon.ico',
+  huggingface: 'https://huggingface.co/favicon.ico',
+};
+
 export const ToolLogo: React.FC<ToolLogoProps> = ({
   tool,
   toolId,
@@ -55,6 +77,30 @@ export const ToolLogo: React.FC<ToolLogoProps> = ({
 }) => {
   const id = (toolId || tool?.id || '').toLowerCase();
   const cfg = SIZE_CONFIGS[size] || SIZE_CONFIGS.md;
+  const [failedLogoId, setFailedLogoId] = useState('');
+  const officialLogoUrl = OFFICIAL_LOGO_URLS[id];
+
+  if (officialLogoUrl) {
+    const initials = tool?.logo || tool?.name?.slice(0, 2).toUpperCase() || 'AI';
+
+    return (
+      <div
+        className={`relative shrink-0 flex items-center justify-center overflow-hidden bg-white shadow-md border border-black/10 ${rounded} ${cfg.container} ${className}`}
+        title={tool?.name || 'AI Tool'}
+      >
+        {failedLogoId === id ? (
+          <span className="font-black text-sm text-neutral-900 font-mono">{initials}</span>
+        ) : (
+          <img
+            src={officialLogoUrl}
+            alt={`${tool?.name || id} logo`}
+            className={`${cfg.icon} object-contain`}
+            onError={() => setFailedLogoId(id)}
+          />
+        )}
+      </div>
+    );
+  }
 
   // 1. ANTHROPIC CLAUDE: Official Warm Terracotta 8-point Asterisk / Spark
   if (id.includes('claude')) {
