@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { ToolCategory, ToolPricing } from '../../types';
+import { reportAppError } from '../../utils/errorReporting';
 
 interface SubmitToolPageProps {
   onNavigateHome: () => void;
@@ -53,7 +54,14 @@ export const SubmitToolPage: React.FC<SubmitToolPageProps> = ({
         setFormData({ ...formData, logoUrl: reader.result as string });
         setErrorMsg('');
       };
-      reader.readAsDataURL(file);
+      reader.onerror = () => {
+        reportAppError('Uploaded logo read', reader.error ?? new Error('The selected file could not be read.'));
+      };
+      try {
+        reader.readAsDataURL(file);
+      } catch (error) {
+        reportAppError('Uploaded logo read', error);
+      }
     }
   };
 
@@ -283,7 +291,12 @@ export const SubmitToolPage: React.FC<SubmitToolPageProps> = ({
                   <span className="text-xs font-mono uppercase text-neutral-400 mb-3">Logo Preview</span>
                   {logoPreview ? (
                     <div className="w-20 h-20 rounded-xl overflow-hidden border border-white/20 shadow-lg flex items-center justify-center bg-black/40">
-                      <img src={logoPreview} alt="Logo preview" className="w-full h-full object-cover" />
+                      <img
+                        src={logoPreview}
+                        alt="Logo preview"
+                        className="w-full h-full object-cover"
+                        onError={() => reportAppError('Uploaded logo preview', new Error('The selected file is not a readable image.'))}
+                      />
                     </div>
                   ) : (
                     <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-lg border border-white/15">
