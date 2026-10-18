@@ -29,6 +29,7 @@ import { TermsOfUsePage } from './components/pages/TermsOfUsePage';
 import { ToolDetailsPage } from './components/pages/ToolDetailsPage';
 import { CategoryPage } from './components/pages/CategoryPage';
 import { ReadingProgressBar } from './components/ReadingProgressBar';
+import { GlobalErrorNotifications } from './components/GlobalErrorNotifications';
 
 import { AIAgent, PageRoute, ToolCategory, GuideArticle } from './types';
 import { MOCK_TOOLS } from './data/mockTools';
@@ -272,6 +273,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#07080c] text-neutral-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+      <GlobalErrorNotifications />
       {/* Thin Animated Reading Progress Bar at the top of the screen */}
       <ReadingProgressBar
         isActive={isLongFormPage}
