@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { reportAppError } from './errorReporting';
 
 const STORAGE_KEY = 'aethon_favorite_agents';
 const EVENT_NAME = 'aethon_favorites_updated';
@@ -16,7 +17,8 @@ export const getFavoriteAgentIds = (): string[] => {
     }
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : DEFAULT_FAVORITES;
-  } catch {
+  } catch (error) {
+    reportAppError('Favorite storage read', error);
     return DEFAULT_FAVORITES;
   }
 };
@@ -25,8 +27,8 @@ export const setFavoriteAgentIds = (ids: string[]): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
     window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: ids }));
-  } catch {
-    // Ignore storage quota errors
+  } catch (error) {
+    reportAppError('Favorite storage write', error);
   }
 };
 

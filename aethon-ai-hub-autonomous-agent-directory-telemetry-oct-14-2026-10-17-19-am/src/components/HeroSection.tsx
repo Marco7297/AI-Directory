@@ -41,6 +41,8 @@ import { PageRoute } from '../types';
 import { AgentLogo } from './AgentLogo';
 import { ToolLogo } from './ToolLogo';
 import BrandLogo from './BrandLogo';
+import { reportAppError } from '../utils/errorReporting';
+import suitImageUrl from '../assets/images/ai_agent_bust_1791549653261.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,14 +89,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const videoUrl = "https://res.cloudinary.com/nujogfxk/video/upload/v1791521083/Robot_wearing_suit_adjusts_position_20261009100234.mp4";
   
   // High-fidelity background render of the uploaded Cyberpunk Android in a Tailored Suit
-  const suitImageUrl = "/src/assets/images/cyberpunk_android_suit_1791563449250.jpg";
 
   // Safe initial autoplay initialization
   useEffect(() => {
     if (videoRef.current && bgMode === 'video') {
       videoRef.current.muted = true;
       videoRef.current.defaultMuted = true;
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      videoRef.current.play().then(() => setIsPlaying(true)).catch((error: unknown) => {
+        setIsPlaying(false);
+        if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+          reportAppError('Hero video playback', error);
+        }
+      });
     }
   }, [bgMode]);
 
@@ -160,7 +166,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const togglePlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+        videoRef.current.play().then(() => setIsPlaying(true)).catch((error: unknown) => {
+          setIsPlaying(false);
+          if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+            reportAppError('Hero video playback', error);
+          }
+        });
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
@@ -225,6 +236,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               muted={isMuted}
               playsInline
               preload="auto"
+              onError={() => reportAppError(
+                'External hero video',
+                new Error(videoRef.current?.error?.message || 'The hero video could not be loaded.')
+              )}
               className="w-full h-full object-cover object-center will-change-transform"
             />
           ) : (
@@ -232,6 +247,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               src={suitImageUrl}
               alt="Cyberpunk Android in a Tailored Suit"
               className="w-full h-full object-cover object-center transition-opacity duration-500"
+              onError={() => reportAppError('Hero background image', new Error('The hero background image could not be loaded.'))}
             />
           )}
 

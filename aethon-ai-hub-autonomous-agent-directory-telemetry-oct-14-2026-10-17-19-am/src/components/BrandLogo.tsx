@@ -1,4 +1,6 @@
 import React from 'react';
+import logoUrl from '../assets/images/ai_directory_logo_1791950948453.jpg';
+import { reportAppError } from '../utils/errorReporting';
 
 export interface BrandLogoProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -34,8 +36,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       className={`relative inline-flex items-center justify-center shrink-0 overflow-hidden bg-neutral-950 transition-all duration-300 ${sizeClasses[size]} ${glowClasses} ${ringClasses} ${className}`}
     >
       <img
-        src="/src/assets/images/ai_directory_logo_1791950948453.jpg"
+        src={logoUrl}
         alt="AI Directory Zmpto Tool Logo"
+        onError={() => reportAppError('Brand logo image', new Error('The brand logo could not be loaded.'))}
         referrerPolicy="no-referrer"
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
