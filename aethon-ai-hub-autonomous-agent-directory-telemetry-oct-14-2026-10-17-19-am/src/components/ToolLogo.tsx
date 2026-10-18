@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AITool } from '../types';
+import { reportAppError } from '../utils/errorReporting';
 
 export type ToolLogoSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -95,7 +96,13 @@ export const ToolLogo: React.FC<ToolLogoProps> = ({
             src={officialLogoUrl}
             alt={`${tool?.name || id} logo`}
             className={`${cfg.icon} object-contain`}
-            onError={() => setFailedLogoId(id)}
+            onError={() => {
+              reportAppError(
+                'External tool logo',
+                new Error(`The logo for ${tool?.name || id} could not be loaded.`)
+              );
+              setFailedLogoId(id);
+            }}
           />
         )}
       </div>
