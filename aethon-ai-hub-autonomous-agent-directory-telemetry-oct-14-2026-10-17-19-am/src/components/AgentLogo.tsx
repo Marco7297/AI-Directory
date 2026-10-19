@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AGENT_LOGOS_MAP } from '../data/mockAgents';
 import { AIAgent } from '../types';
 import { Bot, Cpu, Shield, Search, Eye, Clock, Terminal, MessageSquare, Sparkles, Code2, Globe } from 'lucide-react';
+import { reportAppError } from '../utils/errorReporting';
 
 export type AgentLogoSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -458,7 +459,13 @@ export const AgentLogo: React.FC<AgentLogoProps> = ({
           <img
             src={logoSrc}
             alt={agent?.name || meta?.name || 'Agent Logo'}
-            onError={() => setImgError(true)}
+            onError={() => {
+              reportAppError(
+                'External agent logo',
+                new Error(`The logo for ${agent?.name || meta?.name || 'this agent'} could not be loaded.`)
+              );
+              setImgError(true);
+            }}
             className="w-full h-full object-contain p-1.5 bg-white transform group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
