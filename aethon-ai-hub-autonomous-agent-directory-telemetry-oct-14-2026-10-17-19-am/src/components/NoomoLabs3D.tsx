@@ -13,6 +13,7 @@ import {
   Eye,
   Info
 } from 'lucide-react';
+import { reportAppError } from '../utils/errorReporting';
 
 export type CreatureColorTheme = 'bioluminescent' | 'quantum' | 'plasma' | 'aurora' | 'chrome';
 
@@ -111,7 +112,7 @@ export const NoomoLabs3D: React.FC<NoomoLabsProps> = ({
       }
       const ctx = audioCtxRef.current;
       if (ctx.state === 'suspended') {
-        ctx.resume();
+        void ctx.resume().catch((error: unknown) => reportAppError('Audio playback', error));
       }
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -134,8 +135,8 @@ export const NoomoLabs3D: React.FC<NoomoLabsProps> = ({
 
       osc.start();
       osc.stop(ctx.currentTime + 0.6);
-    } catch {
-      // Audio autoplay policy fallback
+    } catch (error) {
+      reportAppError('Audio synthesis', error);
     }
   }, [isAudioEnabled]);
 
