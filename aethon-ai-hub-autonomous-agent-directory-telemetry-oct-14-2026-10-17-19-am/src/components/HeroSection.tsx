@@ -423,7 +423,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       value={heroSearchInput}
                       onChange={(e) => setHeroSearchInput(e.target.value)}
                       placeholder="Search Claude, Cursor, o1, Midjourney, Perplexity..."
-                      className="w-full pl-11 pr-28 py-3 bg-black/60 hover:bg-black/70 focus:bg-black/90 border border-white/20 focus:border-blue-400 rounded-2xl text-xs sm:text-sm text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono transition-all backdrop-blur-md"
+                      className="glass-panel w-full pl-11 pr-28 py-3 hover:bg-black/70 focus:bg-black/90 focus:border-blue-400 rounded-2xl text-xs sm:text-sm text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono transition-all"
                     />
                     <button
                       type="submit"
@@ -627,7 +627,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 
                 {/* Node 01: Multimodal Foundation & Frontier Reasoning */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -700,7 +700,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 02: Autonomous Dev Agents & IDEs */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -773,7 +773,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 03: Generative Multimodal & Creative Synthesis */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -846,7 +846,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 04: Deep Research & Synthetic Search */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">

@@ -33,6 +33,7 @@ import { GlobalErrorNotifications } from './components/GlobalErrorNotifications'
 import { AdUnit } from './components/AdUnit';
 import BrandLogo from './components/BrandLogo';
 import { LoaderGooeyBlobs } from './components/ui/loaders-gooey-blobs';
+import { CanvasText } from './components/ui/canvas-text';
 
 import { AIAgent, PageRoute, ToolCategory, GuideArticle } from './types';
 import { MOCK_TOOLS } from './data/mockTools';
@@ -62,8 +63,11 @@ export default function App() {
   useEffect(() => {
     let isCancelled = false;
     let timeoutId: number;
+    const introDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 450
+      : 5000;
     const minimumDisplayTime = new Promise<void>((resolve) => {
-      timeoutId = window.setTimeout(resolve, 450);
+      timeoutId = window.setTimeout(resolve, introDuration);
     });
 
     void Promise.all([document.fonts.ready, minimumDisplayTime]).then(() => {
@@ -305,9 +309,18 @@ export default function App() {
           aria-label="Loading AI Directory"
         >
           <BrandLogo size="lg" />
-          <p className="mt-5 font-mono text-xs uppercase tracking-[0.28em] text-neutral-300">
-            AI Directory
-          </p>
+          <CanvasText
+            text="AI DIRECTORY"
+            color="#67e8f9"
+            className="mt-2 h-40 w-full"
+            fontSize={36}
+            fontWeight={700}
+            density={2}
+            scatter={56}
+            loadDuration={2}
+            morphDuration={3}
+            magnetic={0}
+          />
           <LoaderGooeyBlobs
             className="mt-5 text-cyan-300"
             size={12}
