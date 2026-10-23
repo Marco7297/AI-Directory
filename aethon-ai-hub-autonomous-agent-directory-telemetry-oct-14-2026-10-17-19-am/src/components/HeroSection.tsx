@@ -41,6 +41,8 @@ import { PageRoute } from '../types';
 import { AgentLogo } from './AgentLogo';
 import { ToolLogo } from './ToolLogo';
 import BrandLogo from './BrandLogo';
+import { reportAppError } from '../utils/errorReporting';
+import suitImageUrl from '../assets/images/ai_agent_bust_1791549653261.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,14 +89,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const videoUrl = "https://res.cloudinary.com/nujogfxk/video/upload/v1791521083/Robot_wearing_suit_adjusts_position_20261009100234.mp4";
   
   // High-fidelity background render of the uploaded Cyberpunk Android in a Tailored Suit
-  const suitImageUrl = "/src/assets/images/cyberpunk_android_suit_1791563449250.jpg";
 
   // Safe initial autoplay initialization
   useEffect(() => {
     if (videoRef.current && bgMode === 'video') {
       videoRef.current.muted = true;
       videoRef.current.defaultMuted = true;
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      videoRef.current.play().then(() => setIsPlaying(true)).catch((error: unknown) => {
+        setIsPlaying(false);
+        if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+          reportAppError('Hero video playback', error);
+        }
+      });
     }
   }, [bgMode]);
 
@@ -160,7 +166,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const togglePlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+        videoRef.current.play().then(() => setIsPlaying(true)).catch((error: unknown) => {
+          setIsPlaying(false);
+          if (!(error instanceof DOMException && error.name === 'NotAllowedError')) {
+            reportAppError('Hero video playback', error);
+          }
+        });
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
@@ -225,6 +236,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               muted={isMuted}
               playsInline
               preload="auto"
+              onError={() => reportAppError(
+                'External hero video',
+                new Error(videoRef.current?.error?.message || 'The hero video could not be loaded.')
+              )}
               className="w-full h-full object-cover object-center will-change-transform"
             />
           ) : (
@@ -232,6 +247,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               src={suitImageUrl}
               alt="Cyberpunk Android in a Tailored Suit"
               className="w-full h-full object-cover object-center transition-opacity duration-500"
+              onError={() => reportAppError('Hero background image', new Error('The hero background image could not be loaded.'))}
             />
           )}
 
@@ -407,7 +423,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       value={heroSearchInput}
                       onChange={(e) => setHeroSearchInput(e.target.value)}
                       placeholder="Search Claude, Cursor, o1, Midjourney, Perplexity..."
-                      className="w-full pl-11 pr-28 py-3 bg-black/60 hover:bg-black/70 focus:bg-black/90 border border-white/20 focus:border-blue-400 rounded-2xl text-xs sm:text-sm text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono transition-all backdrop-blur-md"
+                      className="glass-panel w-full pl-11 pr-28 py-3 hover:bg-black/70 focus:bg-black/90 focus:border-blue-400 rounded-2xl text-xs sm:text-sm text-white placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-400 font-mono transition-all"
                     />
                     <button
                       type="submit"
@@ -611,7 +627,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 
                 {/* Node 01: Multimodal Foundation & Frontier Reasoning */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -684,7 +700,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 02: Autonomous Dev Agents & IDEs */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -757,7 +773,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 03: Generative Multimodal & Creative Synthesis */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">
@@ -830,7 +846,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Node 04: Deep Research & Synthetic Search */}
                 <div className="group relative rounded-3xl border border-white/20 hover:border-blue-400 bg-transparent hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <div className="h-full rounded-[22px] bg-transparent p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
+                  <div className="glass-panel-soft h-full rounded-[22px] p-5 sm:p-6 flex flex-col justify-between space-y-4 transition-colors duration-300">
                     <div>
                       {/* Header plate */}
                       <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pb-2 border-b border-white/10">

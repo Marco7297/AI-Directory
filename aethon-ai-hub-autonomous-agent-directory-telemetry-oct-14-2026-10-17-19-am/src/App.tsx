@@ -29,12 +29,19 @@ import { TermsOfUsePage } from './components/pages/TermsOfUsePage';
 import { ToolDetailsPage } from './components/pages/ToolDetailsPage';
 import { CategoryPage } from './components/pages/CategoryPage';
 import { ReadingProgressBar } from './components/ReadingProgressBar';
+import { GlobalErrorNotifications } from './components/GlobalErrorNotifications';
+import { AdUnit } from './components/AdUnit';
+import BrandLogo from './components/BrandLogo';
+import { LoaderGooeyBlobs } from './components/ui/loaders-gooey-blobs';
+import { CanvasText } from './components/ui/canvas-text';
 
 import { AIAgent, PageRoute, ToolCategory, GuideArticle } from './types';
 import { MOCK_TOOLS } from './data/mockTools';
 import { initLenis, destroyLenis, smoothScrollTo, getLenis } from './utils/scrollManager';
 
 export default function App() {
+  const [isStartupLoading, setIsStartupLoading] = useState(true);
+
   // Navigation Routing State
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
   const [selectedToolId, setSelectedToolId] = useState<string>('cursor-ai');
@@ -52,6 +59,28 @@ export default function App() {
   const [isExploreVisible, setIsExploreVisible] = useState(false);
   const [selectedAgentToast, setSelectedAgentToast] = useState<{ message: string; agent?: AIAgent } | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+    let timeoutId: number;
+    const introDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 450
+      : 5000;
+    const minimumDisplayTime = new Promise<void>((resolve) => {
+      timeoutId = window.setTimeout(resolve, introDuration);
+    });
+
+    void Promise.all([document.fonts.ready, minimumDisplayTime]).then(() => {
+      if (!isCancelled) {
+        setIsStartupLoading(false);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
 
   // Initialize Lenis smooth scroll engine
   useEffect(() => {
@@ -272,6 +301,37 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#07080c] text-neutral-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+      {isStartupLoading && (
+        <div
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#07080c] px-6"
+          role="status"
+          aria-live="polite"
+          aria-label="Loading AI Directory"
+        >
+          <BrandLogo size="lg" />
+          <CanvasText
+            text="AI DIRECTORY"
+            color="#67e8f9"
+            className="mt-2 h-40 w-full"
+            fontSize={36}
+            fontWeight={700}
+            density={2}
+            scatter={56}
+            loadDuration={2}
+            morphDuration={3}
+            magnetic={0}
+          />
+          <LoaderGooeyBlobs
+            className="mt-5 text-cyan-300"
+            size={12}
+            duration={1.3}
+          />
+          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+            Initializing discovery systems
+          </p>
+        </div>
+      )}
+      <GlobalErrorNotifications />
       {/* Thin Animated Reading Progress Bar at the top of the screen */}
       <ReadingProgressBar
         isActive={isLongFormPage}
@@ -416,6 +476,8 @@ export default function App() {
           />
         )}
       </main>
+
+      <AdUnit />
 
       {/* Global Footer (All legal pages, Contact, newsletter signup, categories, mobile friendly) */}
       <Footer onNavigate={handleNavigate} />

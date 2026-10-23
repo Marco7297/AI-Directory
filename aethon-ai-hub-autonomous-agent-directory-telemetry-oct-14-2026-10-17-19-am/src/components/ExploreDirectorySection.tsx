@@ -133,7 +133,7 @@ export const ExploreDirectorySection: React.FC<ExploreDirectorySectionProps> = (
       <div className="relative z-10 max-w-[1520px] mx-auto space-y-10">
         
         {/* Live Community Activity & Benchmark Ticker Bar */}
-        <div className="flex items-center gap-3 overflow-x-auto py-2.5 px-4 rounded-2xl border border-white/10 bg-white/[0.02] text-[11px] font-mono text-neutral-300 scrollbar-none">
+        <div className="glass-panel flex items-center gap-3 overflow-x-auto py-2.5 px-4 rounded-2xl text-[11px] font-mono text-neutral-300 scrollbar-none">
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-300 font-bold shrink-0">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping" />
             <span>LIVE INTELLIGENCE STREAM</span>
@@ -186,7 +186,7 @@ export const ExploreDirectorySection: React.FC<ExploreDirectorySectionProps> = (
 
           {/* Interactive 2-Click AI Matchmaker / Goal Finder */}
           <div className="pt-2">
-            <div className="p-4 rounded-2xl border border-white/15 bg-white/[0.03] space-y-3">
+            <div className="glass-panel p-4 rounded-2xl space-y-3">
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-blue-400 flex items-center gap-1.5 font-bold uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5" />
@@ -326,7 +326,7 @@ export const ExploreDirectorySection: React.FC<ExploreDirectorySectionProps> = (
 
         {/* Shared Type Search Bar & Controls Bar (Sleek Rounded Cyber Frame) */}
         <div className="relative p-[1.5px] rounded-3xl bg-gradient-to-r from-blue-500/40 via-white/20 to-blue-500/40 shadow-2xl">
-          <div className="p-5 sm:p-6 rounded-[22px] bg-[#070913]/95 backdrop-blur-md space-y-4">
+          <div className="glass-panel p-5 sm:p-6 rounded-[22px] space-y-4">
             <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
             {/* Search Input */}
             <div className="relative flex-1 group">
@@ -528,7 +528,7 @@ export const ExploreDirectorySection: React.FC<ExploreDirectorySectionProps> = (
                 {/* Outer Sleek Rounded Cyber Beveled Border Shell */}
                 <div className={`relative p-[1.5px] ${shapeCfg.outer} bg-gradient-to-br from-blue-400/60 via-white/20 to-blue-600/60 group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-indigo-500 shadow-xl group-hover:shadow-[0_15px_35px_rgba(59,130,246,0.35)] transition-all duration-300`}>
                   {/* Inner Card Container with matching smooth rounded corners */}
-                  <div className={`${shapeCfg.inner} bg-[#080a13]/95 hover:bg-[#0c1022]/95 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between min-h-[380px] relative transition-colors duration-300`}>
+                  <div className={`${shapeCfg.inner} glass-panel hover:bg-[#0c1022]/90 p-6 sm:p-7 flex flex-col justify-between min-h-[380px] relative transition-colors duration-300`}>
                     
                     {/* Top Sci-Fi HUD Header Plate Bar */}
                     <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 uppercase tracking-widest pb-3 mb-3 border-b border-white/[0.08]">

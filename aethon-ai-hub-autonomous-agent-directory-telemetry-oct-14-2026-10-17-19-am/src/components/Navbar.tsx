@@ -299,7 +299,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Responsive Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#07080c]/95 border-b border-white/10 px-6 py-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="glass-panel xl:hidden px-6 py-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="text-[11px] font-mono uppercase tracking-wider text-neutral-400 mb-2">
             Navigation Menu
           </div>
