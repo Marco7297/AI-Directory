@@ -465,7 +465,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       onClick={() => onSelectTool ? onSelectTool('gemini-advanced') : onOpenDirectory()}
                       className="px-2.5 py-1 rounded-full border border-white/15 hover:border-blue-400 bg-white/[0.03] text-neutral-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
                     >
-                      <ToolLogo toolId="gemini-advanced" size="xs" />
                       <span>Gemini Pro</span>
                     </button>
                     <button
@@ -562,7 +561,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                           className="group/tool relative px-3 py-1.5 rounded-xl border border-white/10 hover:border-blue-400/80 bg-black/60 hover:bg-blue-950/40 transition-all duration-300 flex items-center gap-2 shrink-0 cursor-pointer shadow-sm hover:shadow-[0_0_12px_rgba(59,130,246,0.3)]"
                           title={`${t.name} - ${t.category}`}
                         >
-                          <ToolLogo tool={t} size="xs" />
+                          {id !== 'gemini-advanced' && <ToolLogo tool={t} size="xs" />}
                           <span className="text-[11px] font-mono font-medium text-neutral-200 group-hover/tool:text-white">
                             {t.name.split(' ')[0]}
                           </span>
@@ -646,7 +645,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         <div className="flex items-center -space-x-1.5">
                           <ToolLogo toolId="claude-ai" size="xs" />
                           <ToolLogo toolId="chatgpt-plus" size="xs" />
-                          <ToolLogo toolId="gemini-advanced" size="xs" />
                           <ToolLogo toolId="deepseek-r1" size="xs" />
                         </div>
                         <span className="text-[10px] font-mono text-neutral-300 truncate">Claude · OpenAI · Gemini · DeepSeek</span>
@@ -1051,7 +1049,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         <div className="flex items-center -space-x-1.5">
                           <ToolLogo toolId="claude-ai" size="xs" />
                           <ToolLogo toolId="chatgpt-plus" size="xs" />
-                          <ToolLogo toolId="gemini-advanced" size="xs" />
                           <ToolLogo toolId="deepseek-r1" size="xs" />
                           <ToolLogo toolId="meta-llama-3" size="xs" />
                         </div>

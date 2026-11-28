@@ -30,7 +30,6 @@ import { ToolDetailsPage } from './components/pages/ToolDetailsPage';
 import { CategoryPage } from './components/pages/CategoryPage';
 import { ReadingProgressBar } from './components/ReadingProgressBar';
 import { GlobalErrorNotifications } from './components/GlobalErrorNotifications';
-import { AdUnit } from './components/AdUnit';
 import BrandLogo from './components/BrandLogo';
 import { LoaderGooeyBlobs } from './components/ui/loaders-gooey-blobs';
 import { CanvasText } from './components/ui/canvas-text';
@@ -38,16 +37,56 @@ import { CanvasText } from './components/ui/canvas-text';
 import { AIAgent, PageRoute, ToolCategory, GuideArticle } from './types';
 import { MOCK_TOOLS } from './data/mockTools';
 import { initLenis, destroyLenis, smoothScrollTo, getLenis } from './utils/scrollManager';
+import { getCategorySlug, updateSeo } from './utils/seo';
+
+const routeFromLocation = (): {
+  route: PageRoute;
+  toolId: string;
+  category: ToolCategory;
+  compareToolAId: string;
+  compareToolBId: string;
+} => {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const routeName = parts[0];
+  const routeMap: Partial<Record<string, PageRoute>> = {
+    'all-tools': 'all-tools',
+    'best-ai-tools': 'best-ai-tools',
+    compare: 'compare',
+    'submit-tool': 'submit-tool',
+    about: 'about',
+    contact: 'contact',
+    'affiliate-disclosure': 'affiliate-disclosure',
+    'privacy-policy': 'privacy-policy',
+    'terms-of-use': 'terms-of-use',
+    tools: 'tool-details',
+    category: 'category'
+  };
+  const route = routeMap[routeName] || 'home';
+  const toolId = route === 'tool-details' ? (parts[1] || 'cursor-ai') : 'cursor-ai';
+  const categoryValue = (Object.values([
+    'Coding', 'Writing', 'Design & Video', 'Research & Data', 'Productivity', 'Audio & Voice'
+  ]) as ToolCategory[]).find((value) => getCategorySlug(value) === parts[1]) || 'Coding';
+  const compareParts = routeName === 'compare' ? parts[1]?.split('-vs-') : undefined;
+
+  return {
+    route,
+    toolId,
+    category: categoryValue,
+    compareToolAId: compareParts?.[0] || 'cursor-ai',
+    compareToolBId: compareParts?.[1] || 'github-copilot'
+  };
+};
 
 export default function App() {
   const [isStartupLoading, setIsStartupLoading] = useState(true);
+  const initialLocation = routeFromLocation();
 
   // Navigation Routing State
-  const [currentPage, setCurrentPage] = useState<PageRoute>('home');
-  const [selectedToolId, setSelectedToolId] = useState<string>('cursor-ai');
-  const [selectedCategory, setSelectedCategory] = useState<ToolCategory>('Coding');
-  const [compareToolAId, setCompareToolAId] = useState<string>('cursor-ai');
-  const [compareToolBId, setCompareToolBId] = useState<string>('github-copilot');
+  const [currentPage, setCurrentPage] = useState<PageRoute>(initialLocation.route);
+  const [selectedToolId, setSelectedToolId] = useState<string>(initialLocation.toolId);
+  const [selectedCategory, setSelectedCategory] = useState<ToolCategory>(initialLocation.category);
+  const [compareToolAId, setCompareToolAId] = useState<string>(initialLocation.compareToolAId);
+  const [compareToolBId, setCompareToolBId] = useState<string>(initialLocation.compareToolBId);
   const [readingArticle, setReadingArticle] = useState<GuideArticle | null>(null);
 
   // Modals & Drawers State
@@ -81,6 +120,33 @@ export default function App() {
       window.clearTimeout(timeoutId);
     };
   }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const location = routeFromLocation();
+      setCurrentPage(location.route);
+      setSelectedToolId(location.toolId);
+      setSelectedCategory(location.category);
+      setCompareToolAId(location.compareToolAId);
+      setCompareToolBId(location.compareToolBId);
+      smoothScrollTo(0);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    const selectedTool = MOCK_TOOLS.find((tool) => tool.id === selectedToolId);
+    const compareA = MOCK_TOOLS.find((tool) => tool.id === compareToolAId);
+    const compareB = MOCK_TOOLS.find((tool) => tool.id === compareToolBId);
+    updateSeo({
+      route: currentPage,
+      tool: selectedTool,
+      category: selectedCategory,
+      compareA,
+      compareB
+    });
+  }, [currentPage, selectedToolId, selectedCategory, compareToolAId, compareToolBId]);
 
   // Initialize Lenis smooth scroll engine
   useEffect(() => {
@@ -136,43 +202,73 @@ export default function App() {
 
   // Router handler
   const handleNavigate = (route: PageRoute, extraParam?: string) => {
+    let targetToolId = selectedToolId;
+    let targetCategory = selectedCategory;
+    let targetCompareA = compareToolAId;
+    let targetCompareB = compareToolBId;
+
     if (route === 'tool-details' && extraParam) {
       setSelectedToolId(extraParam);
+      targetToolId = extraParam;
     } else if (route === 'category' && extraParam) {
       setSelectedCategory(extraParam as ToolCategory);
+      targetCategory = extraParam as ToolCategory;
     } else if (route === 'compare') {
       if (extraParam) {
         setCompareToolAId(extraParam);
+        targetCompareA = extraParam;
         const targetTool = MOCK_TOOLS.find((t) => t.id === extraParam);
         const competitor = targetTool?.similarToolIds?.find((id) => id !== extraParam)
           || (compareToolBId !== extraParam ? compareToolBId : null)
           || MOCK_TOOLS.find((t) => t.id !== extraParam)?.id
           || 'github-copilot';
         setCompareToolBId(competitor);
+        targetCompareB = competitor;
       }
     }
 
     setCurrentPage(route);
+    const paths: Record<PageRoute, string> = {
+      home: '/',
+      'all-tools': '/all-tools',
+      'best-ai-tools': '/best-ai-tools',
+      compare: `/compare/${targetCompareA}-vs-${targetCompareB}`,
+      'submit-tool': '/submit-tool',
+      about: '/about',
+      contact: '/contact',
+      'affiliate-disclosure': '/affiliate-disclosure',
+      'privacy-policy': '/privacy-policy',
+      'terms-of-use': '/terms-of-use',
+      'tool-details': `/tools/${targetToolId}`,
+      category: `/category/${getCategorySlug(targetCategory)}`
+    };
+    window.history.pushState({}, '', paths[route]);
     smoothScrollTo(0);
   };
 
   const handleSelectTool = (toolId: string) => {
     setSelectedToolId(toolId);
     setCurrentPage('tool-details');
+    window.history.pushState({}, '', `/tools/${toolId}`);
     smoothScrollTo(0);
   };
 
   const handleNavigateCategory = (cat: string) => {
     setSelectedCategory(cat as ToolCategory);
     setCurrentPage('category');
+    window.history.pushState({}, '', `/category/${getCategorySlug(cat as ToolCategory)}`);
     smoothScrollTo(0);
   };
 
   const handleCompareTools = (toolAId?: string, toolBId?: string) => {
+    let targetA = compareToolAId;
+    let targetB = compareToolBId;
     if (toolAId) {
       setCompareToolAId(toolAId);
+      targetA = toolAId;
       if (toolBId) {
         setCompareToolBId(toolBId);
+        targetB = toolBId;
       } else {
         const targetTool = MOCK_TOOLS.find((t) => t.id === toolAId);
         const competitor = targetTool?.similarToolIds?.find((id) => id !== toolAId)
@@ -180,11 +276,14 @@ export default function App() {
           || MOCK_TOOLS.find((t) => t.id !== toolAId)?.id
           || 'github-copilot';
         setCompareToolBId(competitor);
+        targetB = competitor;
       }
     } else if (toolBId) {
       setCompareToolBId(toolBId);
+      targetB = toolBId;
     }
     setCurrentPage('compare');
+    window.history.pushState({}, '', `/compare/${targetA}-vs-${targetB}`);
     smoothScrollTo(0);
   };
 
@@ -476,8 +575,6 @@ export default function App() {
           />
         )}
       </main>
-
-      <AdUnit />
 
       {/* Global Footer (All legal pages, Contact, newsletter signup, categories, mobile friendly) */}
       <Footer onNavigate={handleNavigate} />

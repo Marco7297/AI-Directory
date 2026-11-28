@@ -703,5 +703,329 @@ export const MOCK_TOOLS: AITool[] = [
     similarToolIds: ['cursor-ai', 'meta-llama-3', 'deepseek-r1'],
     launchYear: '2020',
     benchmarkScore: 99
+  },
+  {
+    id: 'windsurf',
+    name: 'Windsurf',
+    tagline: 'An AI-powered code editor with an agentic coding flow',
+    description: 'Windsurf is an AI-first development environment with codebase context, inline assistance, and Cascade, an agentic workflow for planning and carrying out multi-step coding tasks.',
+    category: 'Coding',
+    pricing: 'Freemium',
+    pricingDetails: 'Free and paid plans are available; check Windsurf for current plan limits and pricing.',
+    freePlan: 'Yes — a free plan is available with limited AI usage.',
+    rating: 4.7,
+    reviewCount: 1840,
+    logo: 'WI',
+    logoColor: 'from-cyan-600 to-blue-700',
+    websiteUrl: 'https://windsurf.com',
+    featured: true,
+    sponsored: false,
+    bestFor: 'Developers who want an AI-native editor and agentic coding workflows',
+    pros: [
+      'Cascade can work across multiple files with repository context',
+      'Editor combines inline code assistance with agent-style tasks',
+      'Useful for navigating unfamiliar codebases and applying changes'
+    ],
+    cons: [
+      'Agent results still need developer review and testing',
+      'Usage limits and available models vary by plan'
+    ],
+    keyFeatures: [
+      'Cascade agentic coding assistant',
+      'Codebase-aware chat and search',
+      'Inline code generation and edits',
+      'Integrated development environment'
+    ],
+    similarToolIds: ['cursor-ai', 'github-copilot', 'v0-dev'],
+    launchYear: '2024',
+    benchmarkScore: 93
+  },
+  {
+    id: 'lovable',
+    name: 'Lovable',
+    tagline: 'Build and iterate on web applications using natural-language prompts',
+    description: 'Lovable is an AI app-building platform that turns product descriptions and follow-up prompts into editable web application prototypes, with code and integrations available for further development.',
+    category: 'Coding',
+    pricing: 'Freemium',
+    pricingDetails: 'Free and paid plans are available; see Lovable for current usage allowances and pricing.',
+    freePlan: 'Yes — a free plan is available with limited daily usage.',
+    rating: 4.6,
+    reviewCount: 1360,
+    logo: 'LO',
+    logoColor: 'from-rose-500 to-orange-500',
+    websiteUrl: 'https://lovable.dev',
+    featured: true,
+    sponsored: false,
+    bestFor: 'Founders, designers, and developers building early web app prototypes',
+    pros: [
+      'Turns plain-language requirements into a working starting point',
+      'Supports iterative changes through conversational prompts',
+      'Can connect projects to common development and data services'
+    ],
+    cons: [
+      'Generated applications need testing before production use',
+      'Complex requirements may need manual code changes'
+    ],
+    keyFeatures: [
+      'Prompt-to-app generation',
+      'Conversational UI iteration',
+      'Editable generated code',
+      'Project integrations and deployment workflow'
+    ],
+    similarToolIds: ['v0-dev', 'cursor-ai', 'github-copilot'],
+    launchYear: '2024',
+    benchmarkScore: 90
+  },
+  {
+    id: 'grammarly',
+    name: 'Grammarly',
+    tagline: 'AI writing assistance for clarity, correctness, and tone',
+    description: 'Grammarly helps people write and revise across documents, email, and supported apps. Its AI writing features can suggest rewrites, adjust tone, and help generate or refine drafts.',
+    category: 'Writing',
+    pricing: 'Freemium',
+    pricingDetails: 'A free plan and paid plans are available; check Grammarly for current feature limits and pricing.',
+    freePlan: 'Yes — a free plan includes core writing suggestions.',
+    rating: 4.6,
+    reviewCount: 7900,
+    logo: 'GR',
+    logoColor: 'from-emerald-500 to-green-700',
+    websiteUrl: 'https://www.grammarly.com',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Students, professionals, and teams polishing everyday writing',
+    pros: [
+      'Works across many common writing environments',
+      'Offers grammar, spelling, and clarity suggestions',
+      'Tone guidance can help adapt drafts to different audiences'
+    ],
+    cons: [
+      'Some advanced suggestions require a paid plan',
+      'Automated edits should be checked for meaning and voice'
+    ],
+    keyFeatures: [
+      'Grammar and spelling assistance',
+      'Clarity and concision rewrites',
+      'Tone suggestions',
+      'Generative writing assistance'
+    ],
+    similarToolIds: ['claude-ai', 'chatgpt-plus', 'notion-ai'],
+    launchYear: '2009',
+    benchmarkScore: 91
+  },
+  {
+    id: 'adobe-firefly',
+    name: 'Adobe Firefly',
+    tagline: 'Generate and edit images and creative assets with Adobe AI',
+    description: 'Adobe Firefly offers generative image and design capabilities, including text-to-image and generative editing, integrated with Adobe creative workflows.',
+    category: 'Design & Video',
+    pricing: 'Freemium',
+    pricingDetails: 'Access and generative credit allowances vary by Adobe plan; check Adobe for current pricing.',
+    freePlan: 'Limited free generative usage may be available; allowances can change.',
+    rating: 4.5,
+    reviewCount: 2680,
+    logo: 'AF',
+    logoColor: 'from-orange-500 to-red-600',
+    websiteUrl: 'https://firefly.adobe.com',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Designers and content teams working in Adobe creative tools',
+    pros: [
+      'Generative features fit into established Adobe workflows',
+      'Supports image generation and editing tasks',
+      'Useful for quickly exploring visual directions'
+    ],
+    cons: [
+      'Generative credits and features depend on the subscription plan',
+      'Generated output may need refinement for precise brand requirements'
+    ],
+    keyFeatures: [
+      'Text-to-image generation',
+      'Generative Fill and image editing',
+      'Creative Cloud workflow integration',
+      'Text effects and design asset generation'
+    ],
+    similarToolIds: ['midjourney', 'recraft-ai', 'flux-ai'],
+    launchYear: '2023',
+    benchmarkScore: 92
+  },
+  {
+    id: 'gamma',
+    name: 'Gamma',
+    tagline: 'Create and share presentations, documents, and web pages with AI',
+    description: 'Gamma turns prompts and source material into structured presentations and other visual documents, then lets users revise layouts and content in an interactive editor.',
+    category: 'Productivity',
+    pricing: 'Freemium',
+    pricingDetails: 'Free and paid plans are available; check Gamma for current credit allowances and pricing.',
+    freePlan: 'Yes — a free plan is available with limited AI credits.',
+    rating: 4.6,
+    reviewCount: 2130,
+    logo: 'GA',
+    logoColor: 'from-violet-600 to-fuchsia-500',
+    websiteUrl: 'https://gamma.app',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Teams and individuals creating presentation drafts quickly',
+    pros: [
+      'Creates a structured first draft from a prompt or source text',
+      'Layouts can be edited without rebuilding each slide manually',
+      'Supports sharing and presenting from the same workspace'
+    ],
+    cons: [
+      'Generated content and citations should be fact-checked',
+      'Brand-specific layouts may need additional manual tuning'
+    ],
+    keyFeatures: [
+      'Prompt-to-presentation generation',
+      'AI-assisted rewriting and expansion',
+      'Editable themes and layouts',
+      'Shareable presentation links'
+    ],
+    similarToolIds: ['notion-ai', 'chatgpt-plus', 'v0-dev'],
+    launchYear: '2022',
+    benchmarkScore: 89
+  },
+  {
+    id: 'suno',
+    name: 'Suno',
+    tagline: 'Generate songs and music from text prompts',
+    description: 'Suno is a generative music service that creates song recordings from prompts, including vocal and instrumental arrangements, with tools for exploring and extending musical ideas.',
+    category: 'Audio & Voice',
+    pricing: 'Freemium',
+    pricingDetails: 'Free and paid plans are available; check Suno for current generation limits and commercial-use terms.',
+    freePlan: 'Yes — limited free generation is available, subject to current plan terms.',
+    rating: 4.6,
+    reviewCount: 3040,
+    logo: 'SU',
+    logoColor: 'from-orange-500 to-rose-600',
+    websiteUrl: 'https://suno.com',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Musicians and creators sketching song ideas or generating demo tracks',
+    pros: [
+      'Quickly generates complete musical drafts from text prompts',
+      'Supports a broad range of genres and moods',
+      'Useful for ideation and exploring alternate arrangements'
+    ],
+    cons: [
+      'Generated music may need editing for a polished release',
+      'Usage and commercial rights depend on the applicable plan terms'
+    ],
+    keyFeatures: [
+      'Prompt-based song generation',
+      'Vocal and instrumental music creation',
+      'Song extension and variation workflows',
+      'Music library and sharing'
+    ],
+    similarToolIds: ['elevenlabs', 'descript-ai', 'midjourney'],
+    launchYear: '2023',
+    benchmarkScore: 90
+  },
+  {
+    id: 'zapier',
+    name: 'Zapier',
+    tagline: 'Automate work across apps with AI-assisted workflows',
+    description: 'Zapier connects thousands of apps with no-code automations. Its AI features help users build workflows, transform data, and add AI steps to business processes.',
+    category: 'Productivity',
+    pricing: 'Freemium',
+    pricingDetails: 'A free plan and paid tiers are available; task limits and pricing vary by plan.',
+    freePlan: 'Yes — a free plan is available with limited tasks and automation features.',
+    rating: 4.6,
+    reviewCount: 3450,
+    logo: 'ZA',
+    logoColor: 'from-orange-500 to-amber-500',
+    websiteUrl: 'https://zapier.com',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Small teams automating repetitive tasks between cloud apps',
+    pros: [
+      'Connects a broad range of business and productivity apps',
+      'No-code workflow builder lowers the barrier to automation',
+      'AI steps can be combined with existing app integrations'
+    ],
+    cons: [
+      'Complex workflows can take time to configure and maintain',
+      'Task limits and advanced features depend on the selected plan'
+    ],
+    keyFeatures: [
+      'Multi-step app automations',
+      'AI-assisted workflow creation',
+      'Data formatting and routing',
+      'App integrations and triggers'
+    ],
+    similarToolIds: ['notion-ai', 'chatgpt-plus', 'huggingface'],
+    launchYear: '2011',
+    benchmarkScore: 88
+  },
+  {
+    id: 'notebooklm',
+    name: 'NotebookLM',
+    tagline: 'Research and study assistant grounded in your source materials',
+    description: 'NotebookLM helps users ask questions about documents and other added sources, produce summaries and study materials, and explore information with references grounded in their notebook sources.',
+    category: 'Research & Data',
+    pricing: 'Free',
+    pricingDetails: 'Core NotebookLM features are available at no cost; usage limits and paid options may vary by account and region.',
+    freePlan: 'Yes — core features are available free with usage limits.',
+    rating: 4.7,
+    reviewCount: 2860,
+    logo: 'NL',
+    logoColor: 'from-blue-500 to-indigo-600',
+    websiteUrl: 'https://notebooklm.google.com',
+    featured: true,
+    sponsored: false,
+    bestFor: 'Students, researchers, and teams working with a defined set of sources',
+    pros: [
+      'Answers are grounded in sources added to the notebook',
+      'Can summarize and reorganize long source material',
+      'Useful for creating study guides and research overviews'
+    ],
+    cons: [
+      'Output quality depends on the sources provided',
+      'Source limits and feature availability may vary'
+    ],
+    keyFeatures: [
+      'Source-grounded question answering',
+      'Document summaries and study guides',
+      'Source citations and references',
+      'Audio overviews for supported notebooks'
+    ],
+    similarToolIds: ['perplexity-ai', 'claude-ai', 'gemini-advanced'],
+    launchYear: '2023',
+    benchmarkScore: 92
+  },
+  {
+    id: 'otter-ai',
+    name: 'Otter.ai',
+    tagline: 'Transcribe meetings and turn conversations into searchable notes',
+    description: 'Otter.ai records and transcribes meetings, creates searchable notes, and extracts summaries and action items to help teams follow up on conversations.',
+    category: 'Productivity',
+    pricing: 'Freemium',
+    pricingDetails: 'Free and paid plans are available; check Otter for current transcription limits and pricing.',
+    freePlan: 'Yes — a free plan is available with usage limits.',
+    rating: 4.4,
+    reviewCount: 2410,
+    logo: 'OT',
+    logoColor: 'from-blue-500 to-cyan-500',
+    websiteUrl: 'https://otter.ai',
+    featured: false,
+    sponsored: false,
+    bestFor: 'Teams and professionals who need searchable meeting records',
+    pros: [
+      'Creates searchable transcripts and meeting summaries',
+      'Can identify follow-up items from conversations',
+      'Integrates with common online meeting workflows'
+    ],
+    cons: [
+      'Transcription accuracy can vary with audio quality and accents',
+      'Recording meetings may require participant notice and consent'
+    ],
+    keyFeatures: [
+      'Meeting transcription',
+      'AI summaries and action items',
+      'Searchable conversation history',
+      'Meeting platform integrations'
+    ],
+    similarToolIds: ['notion-ai', 'descript-ai', 'elevenlabs'],
+    launchYear: '2016',
+    benchmarkScore: 87
   }
 ];
